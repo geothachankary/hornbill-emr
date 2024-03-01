@@ -65,17 +65,12 @@ public static class ServiceRegistry
                 .AddCore(options => options.UseEntityFrameworkCore().UseDbContext<AppDbContext>())
                 .AddServer(options =>
                 {
-                    options.AllowAuthorizationCodeFlow()
-                           .RequireProofKeyForCodeExchange()
-                           .AllowClientCredentialsFlow()
+                    options.AllowPasswordFlow()
                            .AllowRefreshTokenFlow()
-                           .AllowPasswordFlow()
                            .AcceptAnonymousClients()
                            .DisableScopeValidation();
 
-                    options.SetAuthorizationEndpointUris("/connect/authorize")
-                           .SetTokenEndpointUris("/connect/token")
-                           .SetUserinfoEndpointUris("/connect/userinfo");
+                    options.SetTokenEndpointUris("/connect/token");
 
                     // Register the signing and encryption credentials.
                     options.AddDevelopmentEncryptionCertificate()
@@ -84,8 +79,6 @@ public static class ServiceRegistry
 
                     options.UseAspNetCore()
                            .EnableTokenEndpointPassthrough()
-                           .EnableAuthorizationEndpointPassthrough()
-                           .EnableUserinfoEndpointPassthrough()
                            .DisableTransportSecurityRequirement();
                 })
                 .AddValidation(options =>
