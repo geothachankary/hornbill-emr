@@ -11,11 +11,8 @@ using Serilog.Filters;
 var builder = WebApplication.CreateBuilder();
 
 builder.Logging.ClearProviders();
-var configuration = new ConfigurationBuilder()
-    .AddJsonFile("appsettings.json", false)
-    .Build();
 var logger = new LoggerConfiguration()
-    .ReadFrom.Configuration(configuration)
+    .ReadFrom.Configuration(builder.Configuration)
     .Filter.ByExcluding(Matching.FromSource("Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware"))
     .CreateLogger();
 
@@ -31,7 +28,7 @@ try
     builder.Services
         .AddInfrastructureServices(options =>
         {
-            options.DbContextOptions.ConnectionString = configuration.GetConnectionString("Default")!;
+            options.DbContextOptions.ConnectionString = builder.Configuration.GetConnectionString("Default")!;
             options.DbContextOptions.EnableSensitiveLogging = true;
         });
 
