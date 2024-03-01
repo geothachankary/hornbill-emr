@@ -1,0 +1,14 @@
+﻿@inject NavigationManager NavigationManager
+@inject IAuthenticationService AuthenticationService
+
+<div class="rz-display-none rz-display-sm-inline-flex align-items-center">
+    <RadzenButton Text="Logout" Click="@OnLogout" ButtonStyle="ButtonStyle.Secondary" Variant="Variant.Text"  />
+</div>
+
+@code {
+    async Task OnLogout()
+    {
+        await AuthenticationService.Logout();
+        NavigationManager.NavigateTo("login");
+    }
+}
