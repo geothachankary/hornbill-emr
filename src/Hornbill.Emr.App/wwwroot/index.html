@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="_content/Radzen.Blazor/css/humanistic.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css"  />
 
     <!-- If you add any scoped CSS files, uncomment the following to load them
     <link href="Hornbill.Emr.App.styles.css" rel="stylesheet" /> -->
@@ -17,8 +18,17 @@
 <body>
     <div id="app">
         <div class="d-flex justify-content-center">
-            <div class="spinner-border" role="status">
-                <span class="sr-only">Loading...</span>
+            <div>
+                <div class="loader-wave">
+                    <div class="loader-rect loader-rect1"></div>
+                    <div class="loader-rect loader-rect2"></div>
+                    <div class="loader-rect loader-rect3"></div>
+                    <div class="loader-rect loader-rect4"></div>
+                    <div class="loader-rect loader-rect5"></div>
+                </div>
+                <div class="h3 text-center">
+                    <strong>Loading...</strong>
+                </div>
             </div>
         </div>
     </div>

@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 using Blazored.LocalStorage;
 using Hornbill.Emr.App;
 using Hornbill.Emr.App.Services.Authentication;
+using Hornbill.Emr.App.Services.Loader;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -13,9 +14,6 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddRadzenComponents();
-
-var baseUrl = "http://localhost:5290/";
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(baseUrl) });
 
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<AuthenticationStateProvider, AppAuthStateProvider>();
@@ -30,6 +28,18 @@ builder.Services.AddBlazoredLocalStorage(config =>
     config.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
     config.JsonSerializerOptions.ReadCommentHandling = JsonCommentHandling.Skip;
     config.JsonSerializerOptions.WriteIndented = false;
+});
+
+builder.Services.AddScoped<LoaderService>();
+builder.Services.AddScoped<LoaderHandler>();
+builder.Services.AddScoped(s =>
+{
+    var loaderHandler = s.GetRequiredService<LoaderHandler>();
+    loaderHandler.InnerHandler = new HttpClientHandler();
+    return new HttpClient(loaderHandler)
+    {
+        BaseAddress = new Uri("http://localhost:5290/")
+    };
 });
 
 await builder.Build().RunAsync();
