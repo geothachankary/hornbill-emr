@@ -48,6 +48,7 @@ try
     // this needs to be corrected with actual urls which to be read from appsettings.json
     app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
+    app.UseAppLocalization();
     app.UseAuthentication();
     app.UseAuthorization();
     app.UseFastEndpoints(c =>

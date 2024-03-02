@@ -1,4 +1,5 @@
 ﻿using Hornbill.Emr.Api.Core.Entities;
+using Hornbill.Emr.Api.Infrastructure.Localization;
 using Hornbill.Emr.Api.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using OpenIddict.Validation.AspNetCore;
@@ -29,6 +30,15 @@ public static class ServiceRegistry
                 options.UseOpenIddict();
             });
 
+        services.AddIdentityAuthServices();
+        services.AddOpenIddictServices();
+        services.AddLocalizationServices();
+
+        return services;
+    }
+
+    private static void AddIdentityAuthServices(this IServiceCollection services)
+    {
         // Add ASP.NET Identity
         services
             .AddIdentity<ApplicationUser, ApplicationRole>(options =>
@@ -40,14 +50,6 @@ public static class ServiceRegistry
             })
             .AddEntityFrameworkStores<AppDbContext>();
 
-        services.AddOpenIddictServices();
-        services.AddAuthzServices();
-
-        return services;
-    }
-
-    private static void AddAuthzServices(this IServiceCollection services)
-    {
         services
             .AddAuthentication(options =>
             {
@@ -57,6 +59,12 @@ public static class ServiceRegistry
             });
 
         services.AddAuthorization();
+    }
+
+    private static void AddLocalizationServices(this IServiceCollection services)
+    {
+        services.AddLocalization(options => options.ResourcesPath = "Infrastructure/Localization");
+        services.AddScoped<IAppLocalizer, AppLocalizer>();
     }
 
     private static void AddOpenIddictServices(this IServiceCollection services)
