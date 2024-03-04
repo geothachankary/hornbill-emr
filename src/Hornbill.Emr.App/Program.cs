@@ -14,7 +14,6 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddRadzenComponents();
-
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<AuthenticationStateProvider, AppAuthStateProvider>();
 builder.Services.AddAuthorizationCore();
@@ -42,4 +41,5 @@ builder.Services.AddScoped(s =>
     };
 });
 
-await builder.Build().RunAsync();
+var host = builder.Build();
+await host.RunAsync();

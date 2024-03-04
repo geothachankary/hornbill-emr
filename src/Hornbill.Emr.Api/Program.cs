@@ -3,6 +3,7 @@ using System.Text.Json;
 using FastEndpoints.Swagger;
 using Hornbill.Emr.Api.Infrastructure.DependencyInjection;
 using Hornbill.Emr.Api.Infrastructure.Persistence;
+using Hornbill.Emr.Api.Infrastructure.Serialization.JsonConverters;
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -33,6 +34,7 @@ try
         });
 
     builder.Services.AddControllers();
+    builder.Services.ConfigureOptions<LocalizationJsonOptions>();
     builder.Services.Configure<JsonOptions>(o =>
     {
         o.SerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;

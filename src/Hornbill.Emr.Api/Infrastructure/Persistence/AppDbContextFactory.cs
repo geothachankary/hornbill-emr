@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
 namespace Hornbill.Emr.Api.Infrastructure.Persistence;
@@ -10,6 +11,7 @@ public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
         var configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json")
+            .AddUserSecrets(Assembly.GetExecutingAssembly())
             .Build();
         var connectionString = configuration.GetConnectionString("Default");
         var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();

@@ -9,6 +9,8 @@ namespace Hornbill.Emr.Api.Infrastructure.Persistence;
 
 public class AppDbContext(DbContextOptions options) : IdentityDbContext<ApplicationUser, ApplicationRole, string>(options)
 {
+    public DbSet<Patient> Patients { get; set; }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         // apply identity related entity configurations

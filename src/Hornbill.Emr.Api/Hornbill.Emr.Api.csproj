@@ -8,8 +8,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="FastEndpoints" Version="5.22.0" />
-        <PackageReference Include="FastEndpoints.Swagger" Version="5.22.0" />
+        <PackageReference Include="FastEndpoints" Version="5.23.0" />
+        <PackageReference Include="FastEndpoints.Swagger" Version="5.23.0" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.2" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.2" />
@@ -32,6 +32,10 @@
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.2" />
         <PackageReference Include="System.Linq.Async" Version="6.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Hornbill.Emr.Shared\Hornbill.Emr.Shared.csproj" />
     </ItemGroup>
 
 </Project>
